@@ -48,12 +48,33 @@ An MCP server lets any compatible agent (e.g. Cursor) read thermal, fan, process
    ```
    `.cursor/mcp.json` is already set to use `mcp-server/venv/bin/python` and `mcp-server/server.py`. For another MCP client, run the server the same way (stdio) from the project root.
 
-3. Restart Cursor (or your client) so it picks up the MCP server.
+2. Restart Cursor (or your client) so it picks up the MCP server.
 
 **Use:** Open this project in Cursor and ask e.g. *“What’s up with my fans?”* or *“Fans are loud – diagnose and suggest.”* The agent will call the MCP tools, reason from the data, suggest a tailored curve (inspired by but not limited to the doc), and give you a single command to apply it, e.g.:
 `echo '...' | sudo tee /etc/thinkfan.yaml && sudo systemctl restart thinkfan`
 
 The server only exposes read-only tools; it never writes files or restarts services.
+
+### Enable fan diagnosis elsewhere
+
+**Cursor – any window (not just this project):**  
+Create or edit `~/.cursor/mcp.json` and add the server with the **absolute** path to this repo (replace with your actual path):
+
+```json
+{
+  "mcpServers": {
+    "thinkfan-diagnosis": {
+      "command": "/path/to/this-repo/mcp-server/venv/bin/python",
+      "args": ["/path/to/this-repo/mcp-server/server.py"]
+    }
+  }
+}
+```
+
+Restart Cursor. The thinkfan tools are then available in every project. The agent may not auto-use them outside this repo unless you ask explicitly (e.g. "check my fans" or "use the thinkfan tools").
+
+**Other MCP clients (e.g. Claude Code):**  
+Add the same server to that app's MCP config: `command` = path to this repo's `mcp-server/venv/bin/python`, `args` = `[ "/path/to/this-repo/mcp-server/server.py" ]`. Refer to the client's docs for where to put the config.
 
 ## Version control
 
