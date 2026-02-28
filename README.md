@@ -20,6 +20,9 @@ Small set of helpers for **thinkfan** and temperature/fan monitoring on ThinkPad
 - **From file manager:**  
   Open this folder, right‑click `run-monitor.sh` → **Run** or **Execute** (or double‑click if your file manager runs executable scripts).
 
+- **In background (close terminal, keep window):**  
+  `nohup ./run-monitor.sh &`
+
 If you see “(need root or run as root)”, run:  
 `pkexec python3 thinkpad-temp-fan-monitor.py`
 
