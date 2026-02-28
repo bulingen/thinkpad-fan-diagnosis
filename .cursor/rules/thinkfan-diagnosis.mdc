@@ -1,0 +1,15 @@
+---
+description: When user asks about fans/temps, use MCP tools to diagnose and suggest a thought-through curve
+alwaysApply: true
+---
+
+# ThinkPad fan diagnosis
+
+When the user asks about fans, thermals, or noise (e.g. "What's up with my fans?", "Fans are loud"):
+
+1. Call the **thinkfan-diagnosis** MCP tools: `get_thermal`, `get_fan`, `get_top_processes`, `get_thinkfan_config`; optionally `get_curve_reference` for inspiration.
+2. Summarise: temps, fan level, and whether a process is spiking.
+3. Suggest a **thought-through** fan curve from the data and current levels (reason about it; don't just pick a preset from the doc).
+4. Output a **single command** to apply: `echo '<full YAML>' | sudo tee /etc/thinkfan.yaml && sudo systemctl restart thinkfan`. Do not execute it; the user runs it.
+
+No automatic writes. Doc presets are inspiration only.
