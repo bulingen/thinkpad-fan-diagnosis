@@ -11,8 +11,8 @@ from mcp.server.fastmcp import FastMCP
 
 mcp = FastMCP(
     "thinkfan-diagnosis",
-    description="Read thermal, fan, processes and thinkfan config for diagnosis and curve suggestions.",
 )
+mcp.description = "Read thermal, fan, processes and thinkfan config for diagnosis and curve suggestions."
 
 # Paths (work when Cursor runs server from project root or from mcp-server/)
 _SCRIPT_DIR = Path(__file__).resolve().parent
